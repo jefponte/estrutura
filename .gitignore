@@ -13,3 +13,5 @@
 *.project
 *.classpath
 *.class
+*/Debug/
+*~
