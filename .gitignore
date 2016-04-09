@@ -1,0 +1,15 @@
+*.metadata
+*.project
+*.settings
+*.prefs
+*.cproject
+*.cbp
+*.depend
+*.exe
+*.o
+*.layout
+*.cbp
+*.exe
+*.project
+*.classpath
+*.class
