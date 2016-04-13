@@ -9,8 +9,8 @@ typedef struct arvore{
 }Arvore;
 
 
-void inicializa(Arvore *arvore);
-void criaRaiz(Arvore *arvore);
+Arvore* inicializa();
+Arvore* criaRaiz(char info, Arvore *sae, Arvore *sad);
 void vazia(Arvore *arvore);
 void inserir(char item, Arvore *arvore);
 
