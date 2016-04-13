@@ -11,7 +11,8 @@ typedef struct arvore{
 
 Arvore* inicializa();
 Arvore* criaRaiz(char info, Arvore *sae, Arvore *sad);
-void vazia(Arvore *arvore);
+int vazia(Arvore *arvore);
+void imprimirArvore(Arvore *arvore);
 void inserir(char item, Arvore *arvore);
 
 
