@@ -1,6 +1,9 @@
 #include "arvore.h"
 #include <stdio.h>
 #include <stdlib.h>
+#define FALSE 0
+#define TRUE !FALSE
+
 
 Arvore* inicializa(){
 
@@ -8,7 +11,7 @@ Arvore* inicializa(){
 }
 
 
-Arvore* criaRaiz(char info, Arvore *sae, Arvore *sad){
+Arvore* criaRaiz(int info, Arvore *sae, Arvore *sad){
     Arvore *novo = (Arvore*)malloc(sizeof(Arvore));
     novo->info = info;
     novo->esquerda = sae;
@@ -19,18 +22,39 @@ Arvore* criaRaiz(char info, Arvore *sae, Arvore *sad){
 
 
 int vazia(Arvore *arvore){
-    return arvore==NULL;
+    if(arvore == NULL)
+        return FALSE;
+    else
+        return TRUE;
 }
+
 
 void imprimirArvore(Arvore *arvore){
     //printf("<");
     if(!vazia(arvore)){
-        printf("%c", arvore->info);
+        printf("%d", arvore->info);
         imprimirArvore(arvore->esquerda);
         imprimirArvore(arvore->direita);
-
-
     }
     //printf(">");
 
+}
+
+void inserir(int item, Arvore *arvore) {
+
+    if(arvore == NULL){
+        printf("VOu alocar e inserir o item %d\n", item);
+        arvore = (Arvore*)malloc(sizeof(Arvore));
+        arvore->info = item;
+        arvore->esquerda = NULL;
+        arvore->direita = NULL;
+    }else{
+        if(item < arvore->info)
+        {
+            inserir(item, arvore->esquerda);
+
+        }else{
+            inserir(item, arvore->direita);
+        }
+    }
 }
