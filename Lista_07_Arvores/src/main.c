@@ -77,13 +77,59 @@ Arvore* liberaArvore(Arvore*a){
 	return NULL;
 }
 
+int pesquisa(Arvore* a, int x){
+    if(vazia(a))
+        return 0;
+    else
+        return a->info == x || pesquisa(a->esquerda, x) ||
+        pesquisa(a->direita, x);
+
+}
+
+int pesquisaPreOrdem(Arvore* a, int x){
+    if(vazia(a))
+        return 0;
+    return a->info == x || pesquisa(a->esquerda, x) || pesquisa(a->direita, x);
+
+}
+int pesquisaEmOrdem(Arvore* a, int x){
+    if(vazia(a))
+        return 0;
+    return  pesquisa(a->esquerda, x) || a->info == x || pesquisa(a->direita, x);
+
+}
+int pesquisaPosOrdem(Arvore* a, int x){
+    if(vazia(a))
+        return 0;
+    return pesquisa(a->esquerda, x)|| pesquisa(a->direita, x) || a->info == x;
+}
+int excluir(Arvore* a, int x){
+    if(vazia(a))
+        return 0;
+    if(a->info == x){
+
+    }else{
+        return excluir(a->esquerda, x);
+        return excluir(a->direita, x);
+    }
+
+}
 int main(){
     Arvore *raiz = inicializa();
     raiz = inserir(14, raiz);
     raiz = inserir(10, raiz);
     raiz = inserir(3, raiz);
     raiz = inserir(2, raiz);
-    raiz = inserir(20, raiz);
+    raiz = inserir(55, raiz);
+    if(pesquisaEmOrdem(raiz, 14)){
+        printf("Achei!!!\n");
+    }
+    else{
+        printf("Nao achei!!!\n");
+    }
+    imprimirArvore(raiz);
+    excluir(raiz, 14);
+    printf("\n");
     imprimirArvore(raiz);
     liberaArvore(raiz);
 	return 0;
