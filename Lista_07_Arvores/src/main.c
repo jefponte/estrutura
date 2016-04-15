@@ -44,23 +44,27 @@ void imprimirArvore(Arvore *arvore){
 
 }
 
-void inserir(int item, Arvore *arvore) {
+Arvore* inserir(int item, Arvore *arvore) {
 
     if(arvore == NULL){
-        printf("VOu alocar e inserir o item %d\n", item);
+
         arvore = (Arvore*)malloc(sizeof(Arvore));
         arvore->info = item;
         arvore->esquerda = NULL;
         arvore->direita = NULL;
+        return arvore;
     }else{
         if(item < arvore->info)
         {
-            inserir(item, arvore->esquerda);
-
+            arvore->esquerda = inserir(item, arvore->esquerda);
+            return arvore;
         }else{
-            inserir(item, arvore->direita);
+
+            arvore->direita = inserir(item, arvore->direita);
+            return arvore;
         }
     }
+
 }
 
 
@@ -70,30 +74,9 @@ void inserir(int item, Arvore *arvore) {
 int main(){
 
 
-//    Arvore *a;
-//	Arvore *a1;
-//    Arvore *a2;
-//    Arvore *a3;
-//    Arvore *a4;
-//    Arvore *a5;
-//
-//    a1 = criaRaiz(4, inicializa(), inicializa());
-//    a2 = criaRaiz(2, inicializa(), a1);
-//    a3 = criaRaiz(5, inicializa(), inicializa());
-//    a4 = criaRaiz(6, inicializa(), inicializa());
-//    a5 = criaRaiz(3, a3, a4);
-//    a = criaRaiz(1, a2, a5);
-//
-//    imprimirArvore(a);
-
-
-
-    Arvore *raiz;
-    raiz = NULL;
-    raiz = (Arvore*)malloc(sizeof(Arvore));
-    raiz->info = 10;
-    raiz->direita = NULL;
-    raiz->esquerda = NULL;
+    Arvore *raiz = NULL;
+    raiz = inserir(14, raiz);
+    raiz = inserir(10, raiz);
 
     imprimirArvore(raiz);
 	return 0;
