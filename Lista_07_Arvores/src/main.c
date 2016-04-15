@@ -68,17 +68,24 @@ Arvore* inserir(int item, Arvore *arvore) {
 }
 
 
-
-
+Arvore* liberaArvore(Arvore*a){
+	if(!vazia(a)){
+		liberaArvore(a->esquerda);
+		liberaArvore(a->direita);
+		free(a);
+	}
+	return NULL;
+}
 
 int main(){
-
-
-    Arvore *raiz = NULL;
+    Arvore *raiz = inicializa();
     raiz = inserir(14, raiz);
     raiz = inserir(10, raiz);
-
+    raiz = inserir(3, raiz);
+    raiz = inserir(2, raiz);
+    raiz = inserir(20, raiz);
     imprimirArvore(raiz);
+    liberaArvore(raiz);
 	return 0;
 }
 
