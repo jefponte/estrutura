@@ -32,11 +32,30 @@ int vazia(Arvore *arvore){
     return arvore == NULL;
 }
 
+void imprimirArvore2(Arvore *arvore){
+    //printf("<");
+    if(!vazia(arvore)){
+        printf(" %d ", arvore->info);
+        imprimirArvore2(arvore->esquerda);
+        imprimirArvore2(arvore->direita);
+    }
+    //printf(">");
+
+}
+
+
 
 void imprimirArvore(Arvore *arvore){
     //printf("<");
     if(!vazia(arvore)){
         printf(" %d ", arvore->info);
+        if(!vazia(arvore->direita)){
+            printf("Minha direita %d ", arvore->direita->info);
+        }
+        if(!vazia(arvore->esquerda)){
+            printf("Minha esquerda %d ", arvore->esquerda->info);
+        }
+        printf("\n\n");
         imprimirArvore(arvore->esquerda);
         imprimirArvore(arvore->direita);
     }
@@ -121,18 +140,38 @@ int pesquisaPosOrdem(Arvore* a, int x){
 }
 
 int excluir(Arvore** a, int x){
+    Arvore *aux;
     if(vazia(*a)){
         return FALSE;
     }
     if((*a)->info == x){
-        free(*a);
-        *a = NULL;
+        if(vazia((*a)->esquerda) && vazia((*a)->direita)){
+            free(*a);
+            *a = NULL;
+        }
+        else if(vazia((*a)->esquerda) && !vazia((*a)->direita)){
+
+            *a = (*a)->direita;
+        }
+        else if(!vazia((*a)->esquerda) && vazia((*a)->direita)){
+
+            *a = (*a)->esquerda;
+        }else if(!vazia((*a)->esquerda) && !vazia((*a)->direita)){
+            chegaNumaPonta(*a);
+            (*a)->info = aux->info;
+            excluir(&aux, (*a)->info);
+        }
         return TRUE;
     }else{
         return excluir(&(*a)->esquerda, x) || excluir(&(*a)->direita, x);
     }
 
 }
+void chegaNumaPonta(Arvore *arvore){
+   return;
+
+}
+
 int main(){
     Arvore *raiz = inicializa();
     raiz = inserir(14, raiz);
@@ -148,7 +187,7 @@ int main(){
     }
     imprimirArvore(raiz);
 
-    if(excluir(&raiz, 55)){
+    if(excluir(&raiz, 3)){
         printf("Achei");
     }
 
