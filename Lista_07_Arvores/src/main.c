@@ -81,36 +81,55 @@ int pesquisa(Arvore* a, int x){
     if(vazia(a))
         return 0;
     else
-        return a->info == x || pesquisa(a->esquerda, x) ||
-        pesquisa(a->direita, x);
+        return a->info == x || pesquisa(a->esquerda, x) || pesquisa(a->direita, x);
 
 }
 
 int pesquisaPreOrdem(Arvore* a, int x){
     if(vazia(a))
         return 0;
-    return a->info == x || pesquisa(a->esquerda, x) || pesquisa(a->direita, x);
-
+    //return a->info == x || pesquisa(a->esquerda, x) || pesquisa(a->direita, x);
+    if(x == a->info)
+        return TRUE;
+    else if(pesquisaPreOrdem(a->esquerda, x))
+        return TRUE;
+     else
+        return pesquisaPreOrdem(a->direita, x);
 }
 int pesquisaEmOrdem(Arvore* a, int x){
     if(vazia(a))
         return 0;
-    return  pesquisa(a->esquerda, x) || a->info == x || pesquisa(a->direita, x);
-
+    //return  pesquisa(a->esquerda, x) || a->info == x || pesquisa(a->direita, x);
+    if(pesquisaEmOrdem(a->esquerda, x))
+        return 1;
+    if(x == a->info)
+        return TRUE;
+     else
+        return pesquisaEmOrdem(a->direita, x);
 }
 int pesquisaPosOrdem(Arvore* a, int x){
     if(vazia(a))
         return 0;
-    return pesquisa(a->esquerda, x)|| pesquisa(a->direita, x) || a->info == x;
-}
-int excluir(Arvore* a, int x){
-    if(vazia(a))
-        return 0;
-    if(a->info == x){
+    //return pesquisa(a->esquerda, x)|| pesquisa(a->direita, x) || a->info == x;
 
+    if(pesquisaPosOrdem(a->esquerda, x))
+        return TRUE;
+    else if(pesquisaPosOrdem(a->direita, x))
+        return TRUE;
+    else if(x == a->info)
+        return TRUE;
+}
+
+int excluir(Arvore** a, int x){
+    if(vazia(*a)){
+        return FALSE;
+    }
+    if((*a)->info == x){
+        free(*a);
+        *a = NULL;
+        return TRUE;
     }else{
-        return excluir(a->esquerda, x);
-        return excluir(a->direita, x);
+        return excluir(&(*a)->esquerda, x) || excluir(&(*a)->direita, x);
     }
 
 }
@@ -128,7 +147,11 @@ int main(){
         printf("Nao achei!!!\n");
     }
     imprimirArvore(raiz);
-    excluir(raiz, 14);
+
+    if(excluir(&raiz, 55)){
+        printf("Achei");
+    }
+
     printf("\n");
     imprimirArvore(raiz);
     liberaArvore(raiz);
