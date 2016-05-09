@@ -4,6 +4,8 @@
 #define TRUE !FALSE
 
 
+//Teste
+
 
 typedef struct arvore{
 	int info;
